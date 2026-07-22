@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if review_list %}
+    <ul>
+    {% for review in review_list %}
+        <li><a href="/{{ review.id }}/">{{ review.review_title }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No reviews are available.</p>
+    {% endif %}
+</body>
+</html>
