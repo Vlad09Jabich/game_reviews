@@ -8,7 +8,6 @@ db.sqlite3
 
 # Package manager (uv) and virtual environment
 .venv/
-# uv.lock
 
 # Python bytecode and cache
 __pycache__/
@@ -17,23 +16,9 @@ __pycache__/
 
 # Distribution / packaging
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/
-python-wheels/
 *.egg-info/
-.installed.cfg
 *.egg
-MANIFEST
 
 # Media and uploads
 # media/
@@ -54,3 +39,10 @@ venv.bak/
 *.njsproj
 *.sln
 *.sw?
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
