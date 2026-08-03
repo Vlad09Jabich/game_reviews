@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from .models import Review, Game
-
+from .models import Game, Review
 
 admin.site.register([Review, Game])
