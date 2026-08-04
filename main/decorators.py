@@ -10,4 +10,5 @@ def time_it(func):
         duration = end_time - start_time
         print(f"[TIME] Function {func.__name__} - duration {duration}", flush=True)
         return func(*args, **kwargs)
+
     return wrapper

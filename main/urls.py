@@ -10,5 +10,4 @@ urlpatterns = [
     path("reviews/", views.index, name="index"),
     # ex reviews/2/
     path("reviews/<int:review_id>/", views.detail, name="detail"),
-    
 ]

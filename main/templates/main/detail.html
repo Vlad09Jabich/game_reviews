@@ -8,6 +8,13 @@
 <body>
     <h1>{{ review.review_title }}</h1>
     <p>{{ review.game }}</p>
+    <p>Review authors: 
+    {% for author in review.author.all %}
+        {{ author.name }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        Without author
+    {% endfor %}
+    </p>
     <p>{{ review.review_content }}</p>
 </body>
 </html>

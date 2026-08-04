@@ -13,7 +13,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "django-stubs>=6.0.7",
-    "mypy<2.0.0",
+    "mypy>=2.3.0",
     "ruff>=0.16.1",
 ]
 
@@ -36,4 +36,4 @@ module = "environ.*"
 ignore_missing_imports = true
 
 [tool.django-stubs]
-django_settings_module = "game_reviews.settings" # Укажите здесь путь к вашему файлу settings.py
+django_settings_module = "game_reviews.settings"
