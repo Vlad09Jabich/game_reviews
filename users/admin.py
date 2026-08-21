@@ -6,7 +6,14 @@ from .models import CustomUser
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    list_display = ("username", "email", "nickname", "is_staff", "is_superuser")
+    list_display = (
+        "username",
+        "email",
+        "nickname",
+        "is_staff",
+        "is_superuser",
+        "is_active",
+    )
 
     list_filter = ("is_staff", "is_superuser")
 

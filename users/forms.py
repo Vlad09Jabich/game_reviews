@@ -1,29 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 User = get_user_model()
 
 
 class CustomUserCreationForm(UserCreationForm):
-    nickname = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "input-register form-control",
-                "placeholder": "Your nickname",
-            }
-        ),
-    )
-
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={
-                "class": "input-register form-control",
-                "placeholder": "Your email",
-            }
-        ),
-    )
-
     class Meta(UserCreationForm.Meta):
         model = User
 
@@ -45,3 +27,23 @@ class CustomUserCreationForm(UserCreationForm):
                 field.widget.attrs.update({"placeholder": "Your password"})
             elif field_name == "password2":
                 field.widget.attrs.update({"placeholder": "Confirm your password"})
+
+
+class CustomUserLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "input-login form-control",
+                "placeholder": "Your username",
+            }
+        )
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "input-login form-control",
+                "autocomplete": "current-password",
+                "placeholder": "Your password",
+            }
+        ),
+    )

@@ -6,6 +6,13 @@
     <title>Hub</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
+    <a href="{% url 'users:logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'users:login' %}">Sign up</a>
+    <a href="{% url 'users:register' %}">Registration</a>
+    {% endif %}
     <a href="{% url 'main:index' %}">All reviews</a>
 </body>
 </html>
