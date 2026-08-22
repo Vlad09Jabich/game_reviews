@@ -1,5 +1,5 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, reverse_lazy
 
 from . import views
 from .forms import CustomUserLoginForm
@@ -18,7 +18,9 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "password_change/",
-        auth_views.PasswordChangeView.as_view(),
+        auth_views.PasswordChangeView.as_view(
+            success_url=reverse_lazy("users:password_change_done")
+        ),
         name="password_change",
     ),
     path(
