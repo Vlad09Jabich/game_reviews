@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
+    <p><a href="{% url 'users:password_change' %}">Change password</a></p>
+    <p><a href="{% url 'users:logout' %}">Logout</a></p>
+    <p><a href="{% url 'users:password_reset' %}">Reset password</a></p>
+    <p><a href="{% url 'main:hub' %}">Back</a></p>
+</body>
+</html>

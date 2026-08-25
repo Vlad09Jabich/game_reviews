@@ -6,6 +6,7 @@
     <title>Reviews</title>
 </head>
 <body>
+    <p><a href="{% url 'main:hub' %}">Back</a></p>
     {% if review_list %}
     <ul>
     {% for review in review_list %}

@@ -6,27 +6,30 @@
     <title>Login page</title>
 </head>
 <body>
+    <p><a href="{% url 'main:hub' %}">Back</a></p>
     <form method="post">
-    {% csrf_token %}
+        {% csrf_token %}
 
-    {% if form.non_field_errors %}
-        <div style="color: red; font-weight: bold;">
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}
+        {% if form.non_field_errors %}
+            <div style="color: red; font-weight: bold;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
 
-    {% for field in form %}
-        <div class="form-group">
-            {{ field }}
-            
-            {% if field.errors %}
-                <div style="color: red; font-size: 0.9em;">
-                    {{ field.errors|striptags }}
-                </div>
-            {% endif %}
-        </div>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-</form>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field }}
+                
+                {% if field.errors %}
+                    <div style="color: red; font-size: 0.9em;">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+    </form>
+    <p>Forgot password?</p>
+    <p><a href="{% url 'users:password_reset' %}">Reset password</a></p>
 </body>
 </html>

@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserChangeForm,
+    UserCreationForm,
+)
 
 User = get_user_model()
 
@@ -47,3 +51,23 @@ class CustomUserLoginForm(AuthenticationForm):
             }
         ),
     )
+
+
+class CustomUserAdminCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ("username", "nickname", "email")
+
+
+class CustomUserAdminChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "nickname",
+            "email",
+            "fan",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+        )

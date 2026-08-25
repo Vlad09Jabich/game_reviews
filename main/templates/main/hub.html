@@ -8,10 +8,7 @@
 <body>
     {% if user.is_authenticated %}
     <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
-    <form action="{% url 'users:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <p><a href="{% url 'users:profile' %}">My profile</a></p>
     {% else %}
     <p><a href="{% url 'users:register' %}">Registration</a></p>
     <p><a href="{% url 'users:login' %}">Sign up</a></p>

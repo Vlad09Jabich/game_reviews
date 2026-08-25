@@ -22,6 +22,8 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOST", default=[])
 # Application definition
 
 INSTALLED_APPS = [
+    # For emails
+    "django.contrib.sites",
     "main",
     "users",
     "django.contrib.admin",
@@ -109,3 +111,8 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 LOGIN_REDIRECT_URL = "main:hub"
 LOGOUT_REDIRECT_URL = "main:hub"
+
+SITE_ID = 1
+DEFAULT_FROM_EMAIL = "noreply@example.com"
+# TEST
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
