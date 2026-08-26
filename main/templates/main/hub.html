@@ -9,6 +9,11 @@
     {% if user.is_authenticated %}
     <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
     <p><a href="{% url 'users:profile' %}">My profile</a></p>
+
+    {% if not is_author %}
+    <p><a href="{% url 'main:become_author' %}">Become an author</a></p>
+    {% endif %}
+
     {% else %}
     <p><a href="{% url 'users:register' %}">Registration</a></p>
     <p><a href="{% url 'users:login' %}">Sign up</a></p>

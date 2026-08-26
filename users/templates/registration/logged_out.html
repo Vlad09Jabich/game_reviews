@@ -6,10 +6,16 @@
     <title>Logout</title>
 </head>
 <body>
+{% if user.is_authenticated %}
     <p><a href="{% url 'users:profile' %}">Back to profile</a></p>
-        <form action="{% url 'users:logout' %}" method="post">
+    <form action="{% url 'users:logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
+{% else %}
+    <p>You aren't authenticated in system</p>
+    <p><a href="{% url 'users:login' %}">Login</a></p>
+    <p><a href="{% url 'main:hub' %}">Back to main page</a></p>
+{% endif %}
 </body>
 </html>

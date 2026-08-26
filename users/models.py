@@ -34,7 +34,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=64)
     nickname = models.CharField(max_length=64)
     email = models.EmailField(unique=True)
-    fan = models.ManyToManyField(Game)
+    fan = models.ManyToManyField(Game, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

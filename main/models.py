@@ -1,11 +1,5 @@
+from django.conf import settings
 from django.db import models
-
-
-class Author(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class Game(models.Model):
@@ -19,7 +13,13 @@ class Review(models.Model):
     review_title = models.CharField(max_length=100)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     review_content = models.TextField()
-    author = models.ManyToManyField(Author)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="reviews",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.review_title

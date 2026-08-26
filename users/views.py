@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import CustomUserCreationForm
@@ -19,6 +20,7 @@ def register_view(request):
     return render(request, "users/register.html", context)
 
 
+@login_required
 def profile_view(request):
     return render(request, "users/profile.html")
 
@@ -26,9 +28,6 @@ def profile_view(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        # from django.http import HttpResponse
-        # return HttpResponse("")
         return redirect("main:hub")
 
-    else:
-        return render(request, "registration/logged_out.html")
+    return render(request, "registration/logged_out.html")

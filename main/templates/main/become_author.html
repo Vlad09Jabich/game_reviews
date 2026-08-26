@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become an author</title>
+</head>
+<body>
+    <p>Hello, {{ user.nickname }} ({{ user.username }})!</p>
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit">Become an author</button>
+    </form>
+    <p><a href="{% url 'main:hub' %}">Back</a></p>
+</body>
+</html>

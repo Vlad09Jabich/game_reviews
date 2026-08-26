@@ -13,10 +13,10 @@ urlpatterns = [
         "login/",
         auth_views.LoginView.as_view(
             authentication_form=CustomUserLoginForm,
+            redirect_authenticated_user=True,
         ),
         name="login",
     ),
-    # path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("logout/", views.logout_view, name="logout"),
     path(
         "password_change/",
