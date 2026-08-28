@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
+from .decorators import anonymous_only
 from .forms import CustomUserCreationForm, CustomUserLoginForm
 
 
@@ -29,6 +30,7 @@ def profile_view(request):
     return render(request, "users/profile.html")
 
 
+@anonymous_only
 def register_view(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)

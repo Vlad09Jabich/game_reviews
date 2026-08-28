@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Game, Review
+from .models import Author, Game, Review
 
 # class ReviewInLine(admin.StackedInline):
 #    model = Review.author.through
@@ -18,8 +18,4 @@ class ReviewAdmin(admin.ModelAdmin):
     # filter_horizontal = ("author",)
 
 
-admin.site.register(
-    [
-        Game,
-    ]
-)
+admin.site.register([Game, Author])

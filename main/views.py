@@ -1,17 +1,17 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .decorators import time_it
+from users.decorators import authors_only
+
 from .forms import WriteReviewForm
-from .models import Review
+from .models import Author, Review
 
 
-@time_it
 def hub_view(request):
     return render(
         request,
         "main/hub.html",
-        {"is_author": request.user.groups.filter(name="Authors").exists()},
+        {"is_author": hasattr(request.user, "author")},
     )
 
 
@@ -27,27 +27,25 @@ def detail_view(request, review_id):
     return render(request, "main/detail.html", context)
 
 
+@login_required
 def become_author_view(request):
-    if request.user.groups.filter(name="Authors").exists():
+    if hasattr(request.user, "author"):
         return redirect("main:hub")
 
     if request.method == "POST":
-        request.user.groups.add(Group.objects.get(name="Authors"))
+        Author.objects.create(user=request.user)
         return redirect("main:hub")
 
     return render(request, "main/become_author.html")
 
 
-# @authors_only
+@authors_only
 def write_review_view(request):
-    if not request.user.groups.filter(name="Authors").exists():
-        return redirect("main:hub")
-
     if request.method == "POST":
         form = WriteReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            review.author = request.user
+            review.author = request.user.author
             review.save()
 
             return redirect("main:hub")
