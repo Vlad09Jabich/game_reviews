@@ -2,20 +2,15 @@ from django.contrib import admin
 
 from .models import Author, Game, Review
 
-# class ReviewInLine(admin.StackedInline):
-#    model = Review.author.through
-#    extra = 1
-
-# Model author does not exist
-# @admin.register(Author)
-# class AuthorAdmin(admin.ModelAdmin):
-#    inlines = [ReviewInLine]
-
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
-    # filter_horizontal = ("author",)
+    list_display = ("review_title", "game", "author")
+
+    list_filter = ("game", "author")
+
+    search_fields = ["review_title", "game__game_title"]
+    search_help_text = "Search review title or game title"
 
 
 admin.site.register([Game, Author])
