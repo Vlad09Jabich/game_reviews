@@ -21,8 +21,8 @@ services:
     build: .
     container_name: django_web
     volumes:
-      - .:/app
-      - django_venv:/app/.venv
+      - .:/home/appuser/app
+      - django_venv:/home/appuser/app/.venv
     ports:
       - "8000:8000"
     environment:
