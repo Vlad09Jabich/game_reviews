@@ -75,7 +75,7 @@ DATABASES = {"default": env.db()}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -104,6 +104,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Под вопросом
 STATIC_URL = "static/"
 
 
@@ -112,6 +113,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 LOGIN_REDIRECT_URL = "main:hub"
 LOGOUT_REDIRECT_URL = "main:hub"
 
+# Под вопросом
 SITE_ID = 1
 DEFAULT_FROM_EMAIL = "noreply@example.com"
 # TEST

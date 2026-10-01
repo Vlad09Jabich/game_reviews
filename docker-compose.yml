@@ -22,7 +22,6 @@ services:
     container_name: django_web
     volumes:
       - .:/home/appuser/app
-      - django_venv:/home/appuser/app/.venv
     ports:
       - "8000:8000"
     environment:
@@ -37,4 +36,3 @@ services:
 
 volumes:
   postgres_data:
-  django_venv:
