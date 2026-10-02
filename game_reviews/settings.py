@@ -11,11 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
-
 
 DATABASES = {
     "default": {
@@ -28,18 +26,18 @@ DATABASES = {
     }
 }
 
-
 INSTALLED_APPS = [
-    # For emails
-    "django.contrib.sites",
+    # Local apps (placed first to override core templates)
     "main",
     "users",
+    # Core apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "game_reviews.wsgi.application"
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
@@ -87,30 +84,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-# Под вопросом
+# Required for Django admin to work correctly
+# TODO: Switch static files logic to Nginx container
 STATIC_URL = "static/"
 
-
 AUTH_USER_MODEL = "users.CustomUser"
-
 LOGIN_REDIRECT_URL = "main:hub"
 LOGOUT_REDIRECT_URL = "main:hub"
 
-# Под вопросом
+# Required for password reset emails to determine site domain name
 SITE_ID = 1
+# Sender email address in outgoing emails
 DEFAULT_FROM_EMAIL = "noreply@example.com"
-# TEST
+# Print emails to terminal during local runs
+# TODO: Move connection parameters to .env when switching to Celery
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
