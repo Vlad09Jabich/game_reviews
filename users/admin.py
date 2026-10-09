@@ -1,8 +1,11 @@
+"""TODO: Refactor to normal display in admin panel.
+Refactor entire file to switch all logic from username to email login"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserAdminChangeForm, CustomUserAdminCreationForm
-from .models import CustomUser
+from .models import CustomUser, Permission, Role
 
 
 @admin.register(CustomUser)
@@ -10,11 +13,12 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserAdminChangeForm
     add_form = CustomUserAdminCreationForm
 
-    filter_horizontal = ["fan", "user_permissions", "groups"]
+    # filter_horizontal = ["user_permissions", "groups"]
 
     list_display = [
         "username",
         "email",
+        "role",
         "nickname",
         "is_staff",
         "is_superuser",
@@ -28,6 +32,7 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "fields": [
+                    "role",
                     "username",
                     "password",
                 ]
@@ -35,25 +40,11 @@ class CustomUserAdmin(UserAdmin):
         ),
         (
             "Personal information",
-            {
-                "fields": [
-                    "email",
-                    "nickname",
-                    "fan",
-                ]
-            },
+            {"fields": ["email", "nickname"]},
         ),
         (
             "Permissions",
-            {
-                "fields": [
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ]
-            },
+            {"fields": ["is_active", "is_staff", "is_superuser"]},
         ),
     ]
 
@@ -61,13 +52,14 @@ class CustomUserAdmin(UserAdmin):
         (
             "Requered information",
             {
-                "fields": ["username", "nickname", "email", "password1", "password2"],
-            },
-        ),
-        (
-            "Optional information",
-            {
-                "fields": ["fan"],
+                "fields": [
+                    "username",
+                    "nickname",
+                    "role",
+                    "email",
+                    "password1",
+                    "password2",
+                ],
             },
         ),
         (
@@ -77,9 +69,15 @@ class CustomUserAdmin(UserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
-                    "groups",
-                    "user_permissions",
                 ]
             },
         ),
     ]
+
+
+admin.site.register([Permission])
+
+
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    filter_horizontal = ["permission"]

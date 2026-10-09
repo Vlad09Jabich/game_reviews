@@ -1,3 +1,5 @@
+"""TODO: Refactor entire file to switch all logic from username to email login"""
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
@@ -33,6 +35,8 @@ class CustomUserCreationForm(UserCreationForm):
                 field.widget.attrs.update({"placeholder": "Confirm your password"})
 
 
+# TODO: Switch from username to email login,
+# correctly validate email, and convert it to lowercase
 class CustomUserLoginForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(
@@ -56,17 +60,17 @@ class CustomUserLoginForm(AuthenticationForm):
 class CustomUserAdminCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "nickname", "email")
+        fields = ("role", "username", "nickname", "email")
 
 
 class CustomUserAdminChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = (
+            "role",
             "username",
             "nickname",
             "email",
-            "fan",
             "is_active",
             "is_staff",
             "is_superuser",
