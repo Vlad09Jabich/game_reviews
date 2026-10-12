@@ -5,23 +5,26 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+BASE_USER_ROLE = "base_user"
+VERIFIED_USER_ROLE = "verified_user"
+
 
 class CustomUserManager(BaseUserManager):
-    def create_user(
-        self, email, role, username, nickname, password=None, **extra_fields
-    ):
-        # Convert email to lowercase on registration
+    def create_user(self, email, username, nickname, password=None, **extra_fields):
+        """Create and save a user with the given email, username,
+        nickname, and password."""
+        # Convert email to lowercase on user creation
         email = self.normalize_email(email).lower()
 
         user = self.model(
-            email=email, role=role, username=username, nickname=nickname, **extra_fields
+            email=email, username=username, nickname=nickname, **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(
-        self, email, username, nickname, role=None, password=None, **extra_fields
+        self, email, username, nickname, password=None, **extra_fields
     ):
         extra_fields.setdefault("is_active", True)
         extra_fields.setdefault("is_staff", True)
@@ -34,18 +37,26 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True")
 
-        return self.create_user(
-            email, role, username, nickname, password, **extra_fields
-        )
+        return self.create_user(email, username, nickname, password, **extra_fields)
 
 
 class Permission(models.Model):
+    """Part of the RBAC system. Provides main business logic permissions"""
+
     codename = models.CharField(unique=True, max_length=100)
+
+    def __str__(self):
+        return self.codename
 
 
 class Role(models.Model):
+    """Part of the RBAC system. Provides main business logic roles"""
+
     name = models.CharField(unique=True, max_length=64)
     permission = models.ManyToManyField(Permission, related_name="roles")
+
+    def __str__(self):
+        return self.name
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -71,6 +82,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "nickname"]
+
+    def save(self, *args, **kwargs):
+        """Save the current instance. Enforce business rules
+        such as assingning the base user role."""
+
+        if not self.pk and not self.role_id:
+            self.role = Role.objects.get(name=BASE_USER_ROLE)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username

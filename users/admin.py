@@ -1,6 +1,3 @@
-"""TODO: Refactor to normal display in admin panel.
-Refactor entire file to switch all logic from username to email login"""
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -13,37 +10,29 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserAdminChangeForm
     add_form = CustomUserAdminCreationForm
 
-    # filter_horizontal = ["user_permissions", "groups"]
-
     list_display = [
         "username",
         "email",
         "role",
         "nickname",
-        "is_staff",
-        "is_superuser",
         "is_active",
+        "is_superuser",
+        "last_login",
     ]
 
-    list_filter = ["is_staff", "is_superuser"]
+    list_filter = ["is_active"]
 
     fieldsets = [
         (
-            None,
-            {
-                "fields": [
-                    "role",
-                    "username",
-                    "password",
-                ]
-            },
+            "Authentication and authorization",
+            {"fields": ["email", "password", "role"]},
         ),
         (
             "Personal information",
-            {"fields": ["email", "nickname"]},
+            {"fields": ["username", "nickname"]},
         ),
         (
-            "Permissions",
+            "Raw permissions",
             {"fields": ["is_active", "is_staff", "is_superuser"]},
         ),
     ]
@@ -75,9 +64,12 @@ class CustomUserAdmin(UserAdmin):
     ]
 
 
-admin.site.register([Permission])
-
-
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
+    list_display = ["name", "id"]
     filter_horizontal = ["permission"]
+
+
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    list_display = ["codename", "id"]
