@@ -68,6 +68,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True, max_length=254)
 
+    # TODO: Refactor on_delete=models.SET_NULL, null=True, blank=True
     role = models.ForeignKey(
         Role, on_delete=models.SET_NULL, null=True, blank=True, related_name="users"
     )
