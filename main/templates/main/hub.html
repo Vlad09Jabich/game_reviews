@@ -7,7 +7,7 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
+    <p>Hello, {{ user.username }}!</p>
     <p><a href="{% url 'users:profile' %}">My profile</a></p>
 
 

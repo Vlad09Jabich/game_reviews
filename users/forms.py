@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
 
-        fields = ("email", "username", "nickname")
+        fields = ("email", "username")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,8 +22,6 @@ class CustomUserCreationForm(UserCreationForm):
         for field_name, field in self.fields.items():
             if field_name == "username":
                 field.widget.attrs.update({"placeholder": "Your unique username"})
-            elif field_name == "nickname":
-                field.widget.attrs.update({"placeholder": "Your nickname"})
             elif field_name == "email":
                 field.widget.attrs.update({"placeholder": "Your email"})
             elif field_name == "password1":
@@ -54,7 +52,7 @@ class CustomUserLoginForm(AuthenticationForm):
 class CustomUserAdminCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("role", "username", "nickname", "email")
+        fields = ("role", "username", "email")
 
 
 class CustomUserAdminChangeForm(UserChangeForm):
@@ -63,7 +61,6 @@ class CustomUserAdminChangeForm(UserChangeForm):
         fields = (
             "role",
             "username",
-            "nickname",
             "email",
             "is_active",
             "is_staff",

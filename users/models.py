@@ -10,22 +10,18 @@ VERIFIED_USER_ROLE = "verified_user"
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, nickname, password=None, **extra_fields):
+    def create_user(self, email, username, password=None, **extra_fields):
         """Create and save a user with the given email, username,
         nickname, and password."""
         # Convert email to lowercase on user creation
         email = self.normalize_email(email).lower()
 
-        user = self.model(
-            email=email, username=username, nickname=nickname, **extra_fields
-        )
+        user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(
-        self, email, username, nickname, password=None, **extra_fields
-    ):
+    def create_superuser(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault("is_active", True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -37,7 +33,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True")
 
-        return self.create_user(email, username, nickname, password, **extra_fields)
+        return self.create_user(email, username, password, **extra_fields)
 
 
 class Permission(models.Model):
@@ -53,7 +49,7 @@ class Role(models.Model):
     """Part of the RBAC system. Provides main business logic roles"""
 
     name = models.CharField(unique=True, max_length=64)
-    permission = models.ManyToManyField(Permission, related_name="roles")
+    permission = models.ManyToManyField(Permission, related_name="roles", blank=True)
 
     def __str__(self):
         return self.name
@@ -68,13 +64,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True, max_length=254)
 
-    # TODO: Refactor on_delete=models.SET_NULL, null=True, blank=True
     role = models.ForeignKey(
-        Role, on_delete=models.SET_NULL, null=True, blank=True, related_name="users"
+        Role, on_delete=models.PROTECT, null=False, related_name="users"
     )
 
     username = models.CharField(unique=True, max_length=64)
-    nickname = models.CharField(max_length=64)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -82,7 +76,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "nickname"]
+    REQUIRED_FIELDS = ["username"]
 
     def save(self, *args, **kwargs):
         """Save the current instance. Enforce business rules

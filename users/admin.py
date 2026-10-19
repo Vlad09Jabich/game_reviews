@@ -14,7 +14,6 @@ class CustomUserAdmin(UserAdmin):
         "username",
         "email",
         "role",
-        "nickname",
         "is_active",
         "is_superuser",
         "last_login",
@@ -29,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
         ),
         (
             "Personal information",
-            {"fields": ["username", "nickname"]},
+            {"fields": ["username"]},
         ),
         (
             "Raw permissions",
@@ -43,7 +42,6 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": [
                     "username",
-                    "nickname",
                     "role",
                     "email",
                     "password1",
