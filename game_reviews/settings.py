@@ -28,6 +28,7 @@ DATABASES = {
 
 INSTALLED_APPS = [
     # Local apps (placed first to override core templates)
+    "reviews",
     "main",
     "users",
     # Core apps
