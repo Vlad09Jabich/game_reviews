@@ -8,23 +8,25 @@
     <!-- 1. Верхний блок: Информация о юзере и роли -->
     <div class="profile-header-card">
         <div class="profile-user-zone">
-            <!-- Текстовый аватар: берет первую букву юзернейма -->
             <div class="profile-avatar-placeholder">
                 {{ user.username|slice:":1" }}
             </div>
             <div class="profile-title-block">
                 <h2>{{ user.username }}</h2>
                 
-                <!-- Заглушка статуса роли (в будущем подставите if для роли из БД) -->
                 <div class="profile-status-badge">
-                    <span class="status-dot"></span> <!-- Добавьте класс .active для зеленого цвета -->
-                    Неподтверждённый аккаунт
+                    <!-- Если роль верифицирована, добавляем класс active (зеленый цвет) -->
+                    <span class="status-dot {% if user.role.name == 'verified_user' %}active{% endif %}"></span>
+                    {% if user.role.name == 'verified_user' %}
+                        Подтверждённый аккаунт (Автор)
+                    {% else %}
+                        Неподтверждённый аккаунт
+                    {% endif %}
                 </div>
             </div>
         </div>
         
         <div>
-            <!-- Заглушка кнопки редактирования -->
             <button class="btn-secondary" style="cursor: not-allowed; opacity: 0.6;" disabled>Изменить профиль</button>
         </div>
     </div>
@@ -52,19 +54,22 @@
         <div class="profile-column-card">
             <h3>Ваши последние обзоры</h3>
             
-            <!-- Заглушка пустого состояния (когда напишете логику, обернете в if/for) -->
             <div class="profile-empty-state">
                 <p>Вы ещё не написали ни одного обзора.</p>
             </div>
             
             <div class="profile-card-actions">
-                <!-- Кнопка верификации / Написания статьи -->
-                <a href="#" class="btn-primary" style="background-color: #28a745; box-shadow: none;">Подтвердить аккаунт для написания статей</a>
+                <!-- Динамическая кнопка в зависимости от роли -->
+                {% if user.role.name == 'verified_user' %}
+                    <!-- Кнопка заглушка для будущей фичи написания статей -->
+                    <a href="#" class="btn-primary" style="background-color: #0056b3; box-shadow: none; text-align: center;">Написать статью</a>
+                {% else %}
+                    <!-- Кнопка верификации для base_user -->
+                    <a href="{% url 'users:verify_account' %}" class="btn-primary" style="background-color: #28a745; box-shadow: none; text-align: center;">Подтвердить аккаунт для написания статей</a>
+                {% endif %}
                 
-                <!-- Кнопка просмотра всех своих обзоров (заглушка) -->
                 <button class="btn-secondary" style="cursor: not-allowed; opacity: 0.6; margin-bottom: 15px;" disabled>Смотреть все свои обзоры (0)</button>
                 
-                <!-- Кнопка Выхода -->
                 <a href="{% url 'users:logout' %}" class="btn-secondary" style="color: #dc3545 !important; border-color: #f5c6cb;">Выйти из аккаунта</a>
             </div>
         </div>

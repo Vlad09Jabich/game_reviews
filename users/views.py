@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from .decorators import anonymous_only
 from .forms import CustomUserCreationForm, CustomUserLoginForm
+from .services import verify_user_account
 
 
 class CustomLoginView(auth_views.LoginView):
@@ -28,6 +29,12 @@ class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 @login_required
 def profile_view(request):
     return render(request, "users/profile.html")
+
+
+@login_required
+def verify_account(request):
+    verify_user_account(request.user.id)
+    return render(request, "users/verify_account.html")
 
 
 @anonymous_only

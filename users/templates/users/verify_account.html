@@ -1,0 +1,14 @@
+{% extends "base_accounts.html" %}
+
+{% block title %}Аккаунт подтверждён{% endblock %}
+
+{% block content %}
+<div class="auth-card text-center">
+    <div style="font-size: 40px; margin-bottom: 15px;">🌟</div>
+    <h2>Ваш аккаунт подтверждён!</h2>
+    <p>Поздравляем! Роль вашего аккаунта успешно обновлена. Теперь вам доступна возможность публикации новых статей и обзоров.</p>
+    <div style="margin-top: 25px;">
+        <a href="{% url 'users:profile' %}" class="btn-primary">В профиль</a>
+    </div>
+</div>
+{% endblock %}

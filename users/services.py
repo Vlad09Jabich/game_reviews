@@ -1,8 +1,9 @@
-from .models import CustomUser
+from .models import VERIFIED_USER_ROLE, CustomUser, Role
 
 __all__ = [
     "get_user_role",
     "check_user_permission",
+    "verify_user_account",
 ]
 
 
@@ -14,6 +15,19 @@ def get_user_role(user_id: int) -> str | None:
         return user.role.name
     except CustomUser.DoesNotExist:
         return None
+
+
+def verify_user_account(user_id: int) -> bool:
+    """Upgrade user's role to 'verified_user'"""
+    try:
+        user = CustomUser.objects.get(id=user_id)
+        verified_role = Role.objects.get(name=VERIFIED_USER_ROLE)
+
+        user.role = verified_role
+        user.save(update_fields=["role"])
+        return True
+    except user.DoesNotExist:
+        return False
 
 
 def check_user_permission(user_id: int, perm_codename: str) -> bool:
