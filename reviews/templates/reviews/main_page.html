@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Главная — Обзоры на игры{% endblock %}
+
+{% block content %}
+<div class="main-grid">
+    <h2 class="section-title">Все обзоры</h2>
+    
+    <div class="reviews-list">
+        {% for review in review_list %}
+            <article class="review-card">
+                <div class="review-meta">
+                    <span>Автор: <strong>{{ review.author.username }}</strong></span>
+                    <span>Игра: <strong>{{ review.game }}</strong></span>
+                    <span>Дата публикации: <strong>{{ review.created_at }}</strong></span>
+
+                </div>
+                <h3 class="review-card-title">
+                    <a href="{% url 'reviews:review_detail' review.id %}">{{ review.title }}</a>
+                </h3>
+                <p class="review-excerpt">{{ review.content }}</p>
+            </article>
+        {% empty %}
+            <p>Обзоров пока нет. Будьте первым, кто добавит!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

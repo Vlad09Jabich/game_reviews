@@ -1,15 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-</head>
-<body>
-    <p>Hello, {{ user.nickname }}! ({{ user.username }})</p>
-    <p><a href="{% url 'users:password_change' %}">Change password</a></p>
-    <p><a href="{% url 'users:logout' %}">Logout</a></p>
-    <p><a href="{% url 'users:password_reset' %}">Reset password</a></p>
-    <p><a href="{% url 'main:hub' %}">Back</a></p>
-</body>
-</html>
+{% extends "base_accounts.html" %}
+
+{% block title %}Профиль{% endblock title %}
+
+{% block content %}
+<div class="profile-container">
+
+    <!-- 1. Верхний блок: Информация о юзере и роли -->
+    <div class="profile-header-card">
+        <div class="profile-user-zone">
+            <!-- Текстовый аватар: берет первую букву юзернейма -->
+            <div class="profile-avatar-placeholder">
+                {{ user.username|slice:":1" }}
+            </div>
+            <div class="profile-title-block">
+                <h2>{{ user.username }}</h2>
+                
+                <!-- Заглушка статуса роли (в будущем подставите if для роли из БД) -->
+                <div class="profile-status-badge">
+                    <span class="status-dot"></span> <!-- Добавьте класс .active для зеленого цвета -->
+                    Неподтверждённый аккаунт
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <!-- Заглушка кнопки редактирования -->
+            <button class="btn-secondary" style="cursor: not-allowed; opacity: 0.6;" disabled>Изменить профиль</button>
+        </div>
+    </div>
+
+    <!-- 2. Двухколоночный блок контента -->
+    <div class="profile-body-layout">
+        
+        <!-- ЛЕВАЯ КОЛОНКА: Данные и Пароль -->
+        <div class="profile-column-card">
+            <h3>Личные данные</h3>
+            <ul class="profile-data-list">
+                <li>Логин: <strong>{{ user.username }}</strong></li>
+                <li>Email: <strong>{{ user.email|default:"не указан" }}</strong></li>
+                <li>Дата регистрации: <strong>{{ user.date_joined|date:"d.m.Y"|default:"01.01.2026" }}</strong></li>
+            </ul>
+            
+            <h3 style="margin-top: 25px;">Безопасность</h3>
+            <div class="profile-card-actions">
+                <a href="{% url 'users:password_change' %}" class="btn-secondary">Сменить текущий пароль</a>
+                <a href="{% url 'users:password_reset' %}" class="btn-secondary">Сбросить пароль через Email</a>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: Обзоры и действия -->
+        <div class="profile-column-card">
+            <h3>Ваши последние обзоры</h3>
+            
+            <!-- Заглушка пустого состояния (когда напишете логику, обернете в if/for) -->
+            <div class="profile-empty-state">
+                <p>Вы ещё не написали ни одного обзора.</p>
+            </div>
+            
+            <div class="profile-card-actions">
+                <!-- Кнопка верификации / Написания статьи -->
+                <a href="#" class="btn-primary" style="background-color: #28a745; box-shadow: none;">Подтвердить аккаунт для написания статей</a>
+                
+                <!-- Кнопка просмотра всех своих обзоров (заглушка) -->
+                <button class="btn-secondary" style="cursor: not-allowed; opacity: 0.6; margin-bottom: 15px;" disabled>Смотреть все свои обзоры (0)</button>
+                
+                <!-- Кнопка Выхода -->
+                <a href="{% url 'users:logout' %}" class="btn-secondary" style="color: #dc3545 !important; border-color: #f5c6cb;">Выйти из аккаунта</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

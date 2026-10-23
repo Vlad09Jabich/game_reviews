@@ -8,7 +8,7 @@ def anonymous_only(func):
     def wrapper(request, *args, **kwargs):
 
         if request.user.is_authenticated:
-            return redirect("main:hub")
+            return redirect("reviews:main_page")
 
         return func(request, *args, **kwargs)
 

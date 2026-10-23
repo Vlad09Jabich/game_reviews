@@ -1,0 +1,476 @@
+/* ==========================================================================
+   1. ГЛОБАЛЬНЫЕ СБРОСЫ И БАЗОВЫЕ СТИЛИ
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* ==========================================================================
+   2. ШАПКА (HEADER) И НАВИГАЦИЯ
+   ========================================================================== */
+.my-header {
+    position: sticky; 
+    top: 0;           
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    z-index: 100;     
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 65px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-left, .header-right {
+    flex: 1;
+    display: flex;
+}
+
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.header-right {
+    justify-content: flex-end;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #0056b3;
+    background-color: #f1f3f5;
+}
+
+.center-btn {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.center-btn:hover {
+    color: #0056b3;
+    background-color: #f1f3f5;
+}
+
+.btn-primary {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff !important;
+    background-color: #0056b3;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 86, 179, 0.15);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #004085;
+    color: #ffffff !important;
+    box-shadow: 0 4px 8px rgba(0, 86, 179, 0.25);
+    text-decoration: none !important;
+}
+
+/* ==========================================================================
+   3. ОСНОВНОЙ КОНТЕНТ (MAIN GRID) И СЕКЦИИ
+   ========================================================================== */
+.my-main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.main-grid {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   4. КОМПОНЕНТЫ: КАРТОЧКИ ОБЗОРОВ
+   ========================================================================== */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+}
+
+.review-meta {
+    font-size: 13px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.review-meta span strong {
+    color: #495057;
+}
+
+.review-card-title {
+    margin-bottom: 12px;
+}
+
+.review-card-title a {
+    font-size: 22px;
+    font-weight: 700;
+    color: #212529;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.review-card-title a:hover {
+    color: #0056b3;
+}
+
+.review-excerpt {
+    font-size: 15px;
+    color: #495057;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   5. ФОРМЫ И ПОЛЯ ВВОДА (INPUTS)
+   ========================================================================== */
+input[type="text"], 
+input[type="password"], 
+input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #495057;
+}
+
+button[type="submit"] {
+    display: inline-block;
+    background-color: #0056b3;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 86, 179, 0.15);
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
+}
+
+button[type="submit"]:hover {
+    background-color: #004085;
+    box-shadow: 0 4px 8px rgba(0, 86, 179, 0.25);
+}
+
+form + a, 
+.my-main a {
+    color: #0056b3;
+    text-decoration: underline;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+form + a:hover, 
+.my-main a:hover {
+    color: #003366;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    display: inline-block;
+    text-decoration: none;
+    color: #495057 !important;
+    background-color: #e9ecef;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #dee2e6;
+    color: #212529 !important;
+    text-decoration: none !important;
+}
+
+/* ==========================================================================
+   6. ПОДВАЛ (FOOTER)
+   ========================================================================== */
+.my-footer {
+    background-color: #ffffff;
+    color: #6c757d;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid #e9ecef;
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   7. СТРАНИЦЫ АВТОРИЗАЦИИ (AUTH CARDS)
+   ========================================================================== */
+.auth-card {
+    max-width: 450px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    text-align: left;
+}
+
+.auth-card.text-center {
+    text-align: center;
+}
+
+.auth-card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #212529;
+}
+
+.auth-card p {
+    font-size: 15px;
+    color: #495057;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.auth-actions button[type="submit"] {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   8. СТРАНИЦА ПРОФИЛЯ (PROFILE PAGE)
+   ========================================================================== */
+/* Верхний баннер профиля */
+.profile-header-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    margin-bottom: 30px;
+}
+
+.profile-user-zone {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Круглый текстовый аватар */
+.profile-avatar-placeholder {
+    width: 65px;
+    height: 65px;
+    background-color: #e0e0e0;
+    color: #495057;
+    font-size: 28px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.profile-title-block h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* Статус-бейдж роли пользователя */
+.profile-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    background-color: #e9ecef;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ffc107; /* Жёлтая точка для "Неподтвержденный" */
+    border-radius: 50%;
+}
+
+.status-dot.active {
+    background-color: #28a745; /* Зелёная точка для "Автор" */
+}
+
+/* Двухколоночный Grid для контента */
+.profile-body-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .profile-body-layout {
+        grid-template-columns: 1fr; /* На мобилках выстраивается в один ряд */
+    }
+}
+
+.profile-column-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-column-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #212529;
+    border-bottom: 1px solid #f1f3f5;
+    padding-bottom: 10px;
+}
+
+/* Простые списки данных в профиле */
+.profile-data-list {
+    list-style: none;
+}
+
+.profile-data-list li {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #495057;
+}
+
+.profile-data-list li strong {
+    color: #212529;
+}
+
+/* Кнопки действий внутри блоков */
+.profile-card-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+.profile-card-actions .btn-secondary,
+.profile-card-actions .btn-primary {
+    text-align: center;
+    width: 100%;
+}
+
+/* Заглушка пустого списка статей */
+.profile-empty-state {
+text-align: center;
+padding: 30px 20px;
+color: #6c757d;
+font-size: 14px;
+border: 2px dashed #dee2e6;
+border-radius: 8px;
+margin-bottom: 15px;
+}

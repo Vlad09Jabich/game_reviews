@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ review.title }} — Обзоры на игры{% endblock %}
+
+{% block content %}
+<article class="review-detail-container">
+    <h1 class="review-detail-title">{{ review.title }}</h1>
+    
+    <div class="review-meta" style="margin-bottom: 30px; font-size: 14px;">
+        <span>Игра: <strong>{{ review.game }}</strong></span>
+        <span>Автор обзора: <strong>{{ review.author.username }}</strong></span>
+        <span>Дата публикации: <strong>{{ review.created_at }}</strong></span>
+    </div>
+    
+    <div class="review-detail-content">
+        {{ review.content }}
+    </div>
+</article>
+{% endblock %}
+

@@ -29,7 +29,6 @@ DATABASES = {
 INSTALLED_APPS = [
     # Local apps (placed first to override core templates)
     "reviews",
-    "main",
     "users",
     # Core apps
     "django.contrib.admin",
@@ -56,7 +55,7 @@ ROOT_URLCONF = "game_reviews.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -93,10 +92,11 @@ USE_TZ = True
 # Required for Django admin to work correctly
 # TODO: Switch static files logic to Nginx container
 STATIC_URL = "static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 AUTH_USER_MODEL = "users.CustomUser"
-LOGIN_REDIRECT_URL = "main:hub"
-LOGOUT_REDIRECT_URL = "main:hub"
+LOGIN_REDIRECT_URL = "reviews:main_page"
+LOGOUT_REDIRECT_URL = "reviews:main_page"
 
 # Required for password reset emails to determine site domain name
 SITE_ID = 1

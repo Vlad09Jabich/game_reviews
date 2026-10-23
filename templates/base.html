@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <header class="my-header">
+        <div class="header-container">
+            <!-- Левая часть -->
+            <div class="header-left">
+                <a href="{% url 'reviews:main_page' %}" class="nav-link">Главная</a>
+            </div>
+            
+            <!-- Центр (будет всегда строго посередине экрана) -->
+            <div class="header-center">
+                <a href="{% url 'reviews:all_reviews' %}" class="center-btn">Все обзоры</a>
+            </div>
+            
+            <!-- Правая часть -->
+            <div class="header-right">
+                {% block header_button %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'users:profile' %}" class="btn-primary">Профиль</a>
+                    {% else %}
+                        <a href="{% url 'users:login' %}" class="btn-primary">Регистрация/Вход</a>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </header>
+
+
+    <main class="my-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="my-footer">
+        &copy; 2026 Мой проект
+    </footer>
+
+</body>
+</html>

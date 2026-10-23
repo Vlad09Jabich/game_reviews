@@ -49,6 +49,6 @@ def register_view(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("main:hub")
+        return redirect("reviews:main_page")
 
     return render(request, "registration/logged_out.html")
