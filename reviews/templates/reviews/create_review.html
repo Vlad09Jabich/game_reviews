@@ -1,0 +1,49 @@
+{% extends "base_accounts.html" %}
+
+{% block title %}Написать обзор{% endblock %}
+
+{% block content %}
+<div class="auth-card large-card">
+    <h2>Написать новый обзор</h2>
+    <p>Поделитесь вашим мнением об игре. Поля будут автоматически проверены перед публикацией.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div style="color: #dc3545; background-color: #f8d7da; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; font-weight: bold;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="{{ field.id_for_label }}">
+                    {% if field.name == 'title' %}
+                        Заголовок обзора
+                    {% elif field.name == 'game' %}
+                        Выберите игру
+                    {% elif field.name == 'content' %}
+                        Текст обзора
+                    {% else %}
+                        {{ field.label }}
+                    {% endif %}:
+                </label>
+                
+                {{ field }}
+                
+                {% if field.errors %}
+                    <div style="color: #dc3545; font-size: 13px; margin-top: -12px; margin-bottom: 10px;">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <div class="auth-actions" style="margin-top: 25px;">
+            <button type="submit">Опубликовать обзор</button>
+            <a href="{% url 'users:profile' %}" class="btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

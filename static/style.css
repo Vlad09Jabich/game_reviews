@@ -193,11 +193,13 @@ body {
 /* ==========================================================================
    5. ФОРМЫ И ПОЛЯ ВВОДА (INPUTS)
    ========================================================================== */
+/* Базовые общие стили для текстовых инпутов */
 input[type="text"], 
 input[type="password"], 
 input[type="email"] {
     display: block;
     width: 100%;
+    max-width: 100%;
     padding: 10px 14px;
     margin-top: 8px;
     margin-bottom: 18px;
@@ -208,22 +210,72 @@ input[type="email"] {
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-input[type="text"]:focus, 
-input[type="password"]:focus, 
-input[type="email"]:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+/* Стилизация выпадающего списка выбора игр */
+form select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 35px 10px 14px !important;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #ffffff !important;
+    
+    /* Кастомная стрелочка вместо системной */
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23495057' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 12px 12px !important;
+    cursor: pointer;
 }
 
-form div {
-    margin-bottom: 15px;
+/* Стилизация большого поля текста обзора */
+form textarea {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    min-height: 180px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.5;
+    
+    /* Безопасное изменение размеров: только по вертикали вниз */
+    resize: vertical !important; 
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    border-color: #80bdff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+form div.form-group {
+    margin-bottom: 5px;
+    width: 100%;
 }
 
 form label {
+    display: block;
     font-weight: 600;
     font-size: 14px;
     color: #495057;
+    text-align: left;
 }
 
 button[type="submit"] {
@@ -306,6 +358,10 @@ form + a:hover,
     text-align: left;
 }
 
+.auth-card.large-card {
+    max-width: 650px;
+}
+
 .auth-card.text-center {
     text-align: center;
 }
@@ -338,7 +394,6 @@ form + a:hover,
 /* ==========================================================================
    8. СТРАНИЦА ПРОФИЛЯ (PROFILE PAGE)
    ========================================================================== */
-/* Верхний баннер профиля */
 .profile-header-card {
     background-color: #ffffff;
     border: 1px solid #e9ecef;
@@ -357,7 +412,6 @@ form + a:hover,
     gap: 20px;
 }
 
-/* Круглый текстовый аватар */
 .profile-avatar-placeholder {
     width: 65px;
     height: 65px;
@@ -378,93 +432,76 @@ form + a:hover,
     margin-bottom: 6px;
 }
 
-/* Статус-бейдж роли пользователя */
 .profile-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    font-weight: 600;
-    color: #495057;
-    background-color: #e9ecef;
-    padding: 4px 12px;
-    border-radius: 20px;
+font-weight: 600;
+color: #495057;
+background-color: #e9ecef;
+padding: 4px 12px;
+border-radius: 20px;
 }
-
 .status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #ffc107; /* Жёлтая точка для "Неподтвержденный" */
-    border-radius: 50%;
+width: 8px;
+height: 8px;
+background-color: #ffc107;
+border-radius: 50%;
 }
-
 .status-dot.active {
-    background-color: #28a745; /* Зелёная точка для "Автор" */
+background-color: #28a745;
 }
-
-/* Двухколоночный Grid для контента */
 .profile-body-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 30px;
 }
-
 @media (max-width: 768px) {
-    .profile-body-layout {
-        grid-template-columns: 1fr; /* На мобилках выстраивается в один ряд */
-    }
+.profile-body-layout {
+grid-template-columns: 1fr;
 }
-
+}
 .profile-column-card {
-    background-color: #ffffff;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-    display: flex;
-    flex-direction: column;
+background-color: #ffffff;
+border: 1px solid #e9ecef;
+border-radius: 12px;
+padding: 25px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+display: flex;
+flex-direction: column;
 }
-
 .profile-column-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #212529;
-    border-bottom: 1px solid #f1f3f5;
-    padding-bottom: 10px;
+font-size: 18px;
+font-weight: 700;
+margin-bottom: 20px;
+color: #212529;
+border-bottom: 1px solid #f1f3f5;
+padding-bottom: 10px;
 }
-
-/* Простые списки данных в профиле */
 .profile-data-list {
-    list-style: none;
+list-style: none;
 }
-
 .profile-data-list li {
-    font-size: 14px;
-    margin-bottom: 12px;
-    color: #495057;
+font-size: 14px;
+margin-bottom: 12px;
+color: #495057;
 }
-
 .profile-data-list li strong {
-    color: #212529;
+color: #212529;
 }
-
-/* Кнопки действий внутри блоков */
 .profile-card-actions {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 15px;
+margin-top: auto;
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding-top: 15px;
 }
-
 .profile-card-actions .btn-secondary,
 .profile-card-actions .btn-primary {
-    text-align: center;
-    width: 100%;
+text-align: center;
+width: 100%;
 }
-
-/* Заглушка пустого списка статей */
 .profile-empty-state {
 text-align: center;
 padding: 30px 20px;

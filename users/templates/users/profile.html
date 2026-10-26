@@ -62,7 +62,7 @@
                 <!-- Динамическая кнопка в зависимости от роли -->
                 {% if user.role.name == 'verified_user' %}
                     <!-- Кнопка заглушка для будущей фичи написания статей -->
-                    <a href="#" class="btn-primary" style="background-color: #0056b3; box-shadow: none; text-align: center;">Написать статью</a>
+                    <a href="{% url 'reviews:create_review' %}" class="btn-primary" style="background-color: #0056b3; box-shadow: none; text-align: center;">Написать статью</a>
                 {% else %}
                     <!-- Кнопка верификации для base_user -->
                     <a href="{% url 'users:verify_account' %}" class="btn-primary" style="background-color: #28a745; box-shadow: none; text-align: center;">Подтвердить аккаунт для написания статей</a>
