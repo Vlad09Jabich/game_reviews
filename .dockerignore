@@ -22,10 +22,6 @@ dist/
 *.egg-info/
 *.egg
 
-# Media and uploads
-# media/
-# products/
-
 # Environments
 env/
 venv/
