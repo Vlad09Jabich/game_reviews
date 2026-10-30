@@ -3,6 +3,7 @@ FROM python:3.12-slim
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    libc6-dev\
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -21,4 +22,4 @@ RUN apt-get purge -y --auto-remove gcc
 
 COPY . .
 
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+CMD ["gunicorn", "game_reviews.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

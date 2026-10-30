@@ -8,7 +8,6 @@ db.sqlite3
 
 # Package manager (uv) and virtual environment
 .venv/
-# uv.lock
 
 # Python bytecode and cache
 __pycache__/
@@ -37,9 +36,9 @@ python-wheels/
 *.egg
 MANIFEST
 
-# Media and uploads
-# media/
-# products/
+
+staticfiles/
+
 
 # Environments
 env/
