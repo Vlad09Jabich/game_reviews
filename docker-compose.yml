@@ -1,6 +1,7 @@
 services:
   nginx:
     image: nginx:1.30-alpine
+    restart: unless-stopped
     ports:
       - "80:80"
     volumes:
@@ -11,6 +12,7 @@ services:
 
   db:
     image: postgres:16
+    restart: unless-stopped
     container_name: django_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -28,6 +30,7 @@ services:
 
   web:
     build: .
+    restart: unless-stopped
     container_name: django_web
     command: sh -c "python manage.py collectstatic --noinput && exec gunicorn game_reviews.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
