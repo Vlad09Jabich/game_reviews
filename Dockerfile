@@ -1,6 +1,5 @@
-FROM python:3.12-slim
+FROM python:3.12-slim AS base
 
-# hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libc6-dev\
@@ -15,11 +14,28 @@ WORKDIR /app
 
 COPY uv.lock pyproject.toml ./
 
+
+FROM base AS dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    ca-certificates \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid 1000 appuser \
+    && useradd --uid 1000 --gid 1000 -m -s /bin/bash appuser \
+    && echo "appuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+    && chown -R appuser:appuser /usr/local
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project
+
+
+FROM base AS prod
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-dev --frozen --no-install-project
 
 RUN apt-get purge -y --auto-remove gcc
 
 COPY . .
-
-CMD ["gunicorn", "game_reviews.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

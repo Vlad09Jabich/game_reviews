@@ -27,6 +27,7 @@ DATABASES = {
 }
 
 INSTALLED_APPS = [
+    "rest_framework",
     # Local apps (placed first to override core templates)
     "reviews",
     "users",

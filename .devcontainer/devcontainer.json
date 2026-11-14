@@ -1,0 +1,26 @@
+{
+    "name": "Django Dev Container",
+    "dockerComposeFile": [
+        "../compose.yml",
+        "../compose.dev.yml"
+    ],
+    "service": "web",
+    "workspaceFolder": "/app",
+    "remoteUser": "appuser",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "bibhasdn.django-html",
+                "ms-python.mypy-type-checker",
+                "ms-python.debugpy",
+                "ms-python.vscode-python-envs",
+                "charliermarsh.ruff"
+            ]
+        }
+    }
+}

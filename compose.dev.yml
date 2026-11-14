@@ -1,0 +1,12 @@
+services:
+  db:
+    ports:
+      - "5432:5432"
+
+  web:
+    image: django_web:dev
+    build:
+      target: dev
+    command: sh -c "python manage.py collectstatic --noinput && exec python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
